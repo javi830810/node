@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-// MongoDb
+// MongoDb will be using Herokuuuu
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('mongodb://<user>:<pass>@candidate.15.mongolayer.com:10001,candidate.16.mongolayer.com:10001/app003132345');
