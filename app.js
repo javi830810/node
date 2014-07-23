@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 // MongoDb will be using Heroku
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mongodb://<javi830810>:<2205ja02>@candidate.15.mongolayer.com:10001,candidate.16.mongolayer.com:10001/app003132345');
+var db = monk('mongodb://<javi830810>:<2205ja02>@kahana.mongohq.com:10009/app27698397');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
