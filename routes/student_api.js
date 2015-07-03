@@ -87,7 +87,8 @@ var Student = function(id, name, last_name, classes){
     }
 
     this.validateClass = function(classId){
-
+        //Remember we said classId is always valid for now...
+        return true;
     };
 
 };
