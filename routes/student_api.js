@@ -12,14 +12,6 @@ var studentCollection = function(db){
     return _collection;
 };
 
-
-function guid(){
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-        return v.toString(16);
-    });
-}
-
 var Student = function(id, name, last_name, classes){
     var that = this;
     this.id = id;
@@ -82,8 +74,9 @@ var Student = function(id, name, last_name, classes){
 
     this.addClass = function(classId, callback){
         if(that.classses == null)
-            that.classes.push(classId);
-
+            that.classes = [];
+        that.classes.push(classId);
+        that.save(callback);
     }
 
     this.validateClass = function(classId){
