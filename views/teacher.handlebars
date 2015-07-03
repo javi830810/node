@@ -185,8 +185,8 @@ var calendar = $('#calendar').fullCalendar(
                     end: $('.input-end').val(),
                 },
                 success: function(data) {
-                    //Refresh page for now to update calendar
-                    alert("SUCCESS!!!: Your class have been created Refresh your PAGE")
+                    alert("Success!!! Your class have been created, page will be reloaded");
+                    window.location.reload(true);
                 },
                 error: function(error){
                     alert("ERROR!!!: " + error.responseText)

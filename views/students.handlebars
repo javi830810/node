@@ -11,12 +11,12 @@
 
 </script>
 </body>
-    <h1>ALl the School Teachers<h1>
-        <a href="#" class="add-Teacher">Add Teacher </a>
+    <h1>ALl the School Students<h1>
+        <a href="#" class="add-student">Add Student </a>
 
         <ul>
-            {{#each teachers}}
-                <li>{{name}} {{last_name}}!! -- <a href="/teacher/{{_id}}" >Schedule</a></li>
+            {{#each students}}
+                <li>{{name}} {{last_name}}!! -- <a href="/student/{{_id}}" >Add To Class</a></li>
             {{/each}}
         </ul>
 
@@ -34,15 +34,11 @@
                 <div class="clearfix"/>
 
                 <div class="row small-margin">
-                    <div>LastName: </div>
+                    <div>Last Name: </div>
                     <div><input type='text' class="input-lastname" value="Smith"> </div>
                 </div>
                 <div class="row small-margin">
-                    <div>Email: </div>
-                    <div><input type='text' class="input-email" value="x@gmail.com"> </div>
-                </div>
-                <div class="row small-margin">
-                    <input type='button' class="add-teacher-btn" value="Add Teacher">
+                    <input type='button' class="add-student-btn" value="Add Student">
                 </div>
             </div>
         </div>
@@ -50,7 +46,7 @@
         var host_url = '{{host_url}}';
         $(function() {
 
-            $('.add-Teacher').click(function(){
+            $('.add-student').click(function(){
                 $('#dialog').removeClass('hidden');
             });
 
@@ -58,17 +54,16 @@
                 $('#dialog').addClass('hidden');
             });
 
-            $('.add-teacher-btn').click(function(){
+            $('.add-student-btn').click(function(){
 
                 var url = host_url;
                 $('#dialog').addClass('hidden');
 
-                $.post(host_url + "/api/teacher/", {
+                $.post(host_url + "/api/student/", {
                     name: $('.input-name').val(),
-                    last_name: $('.input-lastname').val(),
-                    email: $('.input-email').val(),
+                    last_name: $('.input-lastname').val()
                 },function( msg ) {
-                    alert("Success!!! Your teacher have been created, page will be reloaded");
+                    alert("Success!!! Your student have been created, page will be reloaded");
                     window.location.reload(true);
               });
             });
