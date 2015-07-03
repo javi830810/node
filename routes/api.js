@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-    var host_url = req.protocol + '://' + req.get('host');
+    var host_url = req.protocol + '://' + req.get('host') + "/api";
     res.json(
       {
           teacher: {
