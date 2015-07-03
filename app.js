@@ -11,7 +11,8 @@ var exphbs  = require('express-handlebars');
 // MongoDb will be using Heroku
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mongodb://school:12345678@kahana.mongohq.com:10009/app27698397');
+var db = monk('mongodb://localhost:27017/school');
+//var db = monk('mongodb://school:12345678@kahana.mongohq.com:10009/app27698397');
 
 var routes = require('./routes/index');
 var teacher = require('./routes/teacher');
