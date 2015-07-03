@@ -183,6 +183,9 @@ router.post('/', function(req, res) {
     var db = req.db;
     teacherCollection(db); //Ensure we have our database
 
+    console.log(req);
+
+
     teacher = new Teacher(null, req.body.name, req.body.last_name, req.body.email);
 
     teacher.save(function(id){

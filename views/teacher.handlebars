@@ -2,14 +2,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>How to add calendar using jQuery and fullCalendar</title>
+  <title>{{teacher.name}}</title>
 	<!--FullCalendar Dependencies-->
-	<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
-	<script src='jquery.min.js'></script>
-	<script src='moment.min.js'></script>
-	<script src='/Users/rlopezdiaz/Desktop/project/fullcalendar/fullcalendar.js'></script>
+	<link rel='stylesheet' href='/css/fullcalendar.css' />
+    <link rel='stylesheet' href='/css/style.css' />
+	<script src='/js/jquery.min.js'></script>
+	<script src='/js/moment.min.js'></script>
+	<script src='/js/fullcalendar/fullcalendar.js'></script>
 	<script type="text/javascript">
-		
+
 		/*
 			jQuery document ready
 		*/
@@ -68,13 +69,6 @@ var calendar = $('#calendar').fullCalendar(
 	select: function(start, end, allDay)
 	{
 		/*
-			after selection user will be promted for enter title for event.
-		*/
-		
-		var title = prompt('Class Name:');
-		var start = prompt('Start:');
-
-		/*
 			if title is enterd calendar will add title and event into fullCalendar.
 		*/
 		if (title)
@@ -100,51 +94,14 @@ var calendar = $('#calendar').fullCalendar(
 		for demo we have added predefined events in json object.
 	*/
 	events: [
-		{
-			title: 'All Day Event',
-			start: new Date(y, m, 1)
-		},
-		{
-			title: 'Long Event',
-			start: new Date(y, m, d-5),
-			end: new Date(y, m, d-2)
-		},
-		{
-			id: 999,
-			title: 'Repeating Event',
-			start: new Date(y, m, d-3, 16, 0),
-			allDay: false
-		},
-		{
-			id: 999,
-			title: 'Repeating Event',
-			start: new Date(y, m, d+4, 16, 0),
-			allDay: false
-		},
-		{
-			title: 'Meeting',
-			start: new Date(y, m, d, 10, 30),
-			allDay: false
-		},
-		{
-			title: 'Lunch',
-			start: new Date(y, m, d, 12, 0),
-			end: new Date(y, m, d, 14, 0),
-			allDay: false
-		},
-		{
-			title: 'Birthday Party',
-			start: new Date(y, m, d+1, 19, 0),
-			end: new Date(y, m, d+1, 22, 30),
-			allDay: false
-		},
-		{
-			title: 'Click for Google',
-			start: new Date(y, m, 28),
-			end: new Date(y, m, 29),
-			url: 'http://google.com/'
-		}
-	]
+        {{#each teacher.classes}}
+            {
+                title: '{{name}}',
+                start: '{{start}}',
+                end:   '{{end}}'
+            },
+        {{/each}}
+    ]
 });
 
 });
@@ -163,14 +120,84 @@ var calendar = $('#calendar').fullCalendar(
 			width: 900px;
 			margin: 0 auto;
 		}
-		
+
 	</style>
 </head>
 <body>
+    <h1>{{teacher.name}} Schedule</h1>
+    <a href="#" class="add-Class">CLICK here to add Class</div>
 
 	<!--FullCalendar container div-->
-	<div id='calendar'></div>
+	<div id='calendar' class="small-margin"></div>
 	<div id = 'modal' ></div>
-	
+
+    <div id="dialog" class="dialog hidden">
+        <div class="dialog-box">
+            <div class="row" style="text-align:right">
+                <a href="#" class='close-Dialog'>Close</a>
+            </div>
+            <div class="row small-margin">
+                <div>Name: </div>
+                <div><input type='text' class="input-name" value="English"> </div>
+            </div>
+            <div class="clearfix"/>
+
+            <div class="row small-margin">
+                <div>Start: </div>
+                <div><input type='text' class="input-start" value="2015-07-03 12:00 PM"> </div>
+            </div>
+            <div class="row small-margin">
+                <div>End: </div>
+                <div><input type='text' class="input-end" value="2015-07-03 12:30 PM"> </div>
+            </div>
+            <div class="row small-margin">
+                <input type='button' class="add-Class-btn" value="Add Class">
+            </div>
+        </div>
+    </div>
+<script>
+    var host_url = '{{host_url}}';
+    var teacherId = '{{teacher.id}}';
+
+    $(function() {
+
+        $('.add-Class').click(function(){
+            $('#dialog').removeClass('hidden');
+        });
+
+        $('.close-Dialog').click(function(){
+            $('#dialog').addClass('hidden');
+        });
+
+        $('.add-Class-btn').click(function(){
+
+            var url = host_url;
+
+            $('#dialog').addClass('hidden');
+
+            $.ajax({
+                url: host_url + "/api/teacher/class",
+                type: "POST",
+                data: {
+                    teacher_id: teacherId,
+                    name: $('.input-name').val(),
+                    start: $('.input-start').val(),
+                    end: $('.input-end').val(),
+                },
+                success: function(data) {
+                    //Refresh page for now to update calendar
+                    alert("SUCCESS!!!: Your class have been created Refresh your PAGE")
+                },
+                error: function(error){
+                    alert("ERROR!!!: " + error.responseText)
+                }
+            });
+
+        });
+
+    });
+</script>
 </body>
+
+
 </html>
