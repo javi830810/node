@@ -1,9 +1,9 @@
 var express = require('express');
-
 var router = express.Router();
 
+/* GET Teacher listing. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'School' });
+    res.render('teacher', { title: 'School Teachers' });
 });
 
 module.exports = router;

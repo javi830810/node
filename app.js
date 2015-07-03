@@ -5,19 +5,29 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//Handlebars
+var exphbs  = require('express-handlebars');
+
 // MongoDb will be using Heroku
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mongodb://javi830810:2205ja02@kahana.mongohq.com:10009/app27698397');
+var db = monk('mongodb://localhost:27017/school');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var teacher = require('./routes/teacher');
+var teacher_api = require('./routes/teacher_api');
+
+var student = require('./routes/student');
+var student_api = require('./routes/student_api');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+//Handlebars Setup
+var hbs = exphbs.create({ /* config */ });
+
+// Register `hbs.engine` with the Express app.
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
 app.use(favicon());
 app.use(logger('dev'));
@@ -33,7 +43,11 @@ app.use(function(req,res,next){
 });
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/teacher', teacher);
+app.use('/api/teacher', teacher_api);
+
+app.use('/student', student);
+app.use('/api/student', student_api);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
+/* GET Teacher listing. */
 router.get('/', function(req, res) {
-  res.send('users');
+    res.render('student', { title: 'School Students' });
 });
 
 module.exports = router;
