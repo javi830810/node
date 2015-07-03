@@ -17,6 +17,7 @@ var db = monk('mongodb://school:12345678@kahana.mongohq.com:10009/app27698397');
 var routes = require('./routes/index');
 var teacher = require('./routes/teacher');
 var teacher_api = require('./routes/teacher_api');
+var api_routes = require('./routes/api');
 
 var student = require('./routes/student');
 var student_api = require('./routes/student_api');
@@ -44,6 +45,7 @@ app.use(function(req,res,next){
 });
 
 app.use('/', routes);
+app.use('/api', api_routes);
 app.use('/teacher', teacher);
 app.use('/api/teacher', teacher_api);
 
